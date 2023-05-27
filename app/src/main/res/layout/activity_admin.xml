@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="مرحبًا بك Admin  "
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/addStudent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="إضافة طالب جديد" />
+    <Button
+        android:id="@+id/addTeacher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="إضافةمدرس جديد" />
+
+    <Button
+        android:id="@+id/viewStudents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="عرض الطلاب المسجلين" />
+<Button
+        android:id="@+id/viewTeacher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="عرض المعلمون المسجلين" />
+
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       android:backgroundTint="#AE1B1B"
+        android:text="تسجيل الخروج" />
+
+</LinearLayout>

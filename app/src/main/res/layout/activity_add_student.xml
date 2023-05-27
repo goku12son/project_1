@@ -1,0 +1,67 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    >
+
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="اسم المستخدم"
+        android:layout_marginTop="5dp"
+        />
+
+    <EditText
+        android:id="@+id/editTextStudentId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="كلمه المرور"
+        android:layout_marginTop="5dp"
+
+        />
+    <EditText
+        android:id="@+id/editTextName2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="اسم الطالب"
+        android:layout_marginTop="5dp"
+        />
+    <EditText
+        android:id="@+id/editTextDateOfBirth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="تاريخ الميلاد"
+        android:layout_marginTop="5dp"
+        />
+
+    <EditText
+        android:id="@+id/editTexuniversityid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="الرقم الجامعي"
+        android:layout_marginTop="5dp"
+
+        />
+
+    <EditText
+        android:id="@+id/editTextGender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="الجنس"
+        android:layout_marginTop="5dp"
+
+        />
+
+    <Button
+        android:id="@+id/buttonAddStudent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="إضافة الطالب"
+        android:layout_marginTop="5dp"
+
+        />
+
+        />
+</LinearLayout>
