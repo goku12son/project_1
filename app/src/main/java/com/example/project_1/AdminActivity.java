@@ -71,21 +71,20 @@ public class AdminActivity extends AppCompatActivity {
 
     public void addNewStudent() {
         Intent intent = new Intent(AdminActivity.this, AddStudentActivity.class);
-        startActivityForResult(intent, 1);
-    }
+        startActivity(intent);     }
 
     public void addNewTeacher() {
-        // Implement add new teacher functionality
-    }
+        Intent intent = new Intent(AdminActivity.this, AddTeacherActivity2.class);
+        startActivity(intent);    }
 
     public void viewStudents() {
         Intent intent = new Intent(AdminActivity.this, ViewStudents.class);
-        intent.putExtra("studentArrayList", studentArrayList);
         startActivity(intent);
     }
 
     public void viewTeacher() {
-        // Implement view teacher functionality
+        Intent intent = new Intent(AdminActivity.this, ViewTeacherActivity2.class);
+        startActivity(intent);
     }
 
     public void logoutAdmin() {
@@ -94,16 +93,6 @@ public class AdminActivity extends AppCompatActivity {
         finish();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            if (data != null) {
-                Student student = (Student) data.getSerializableExtra("student");
-                if (student != null) {
-                    studentArrayList.add(student);
-                }
-            }
-        }
-    }
+
+
 }

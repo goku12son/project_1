@@ -17,8 +17,8 @@ public class AddStudentActivity extends AppCompatActivity {
     EditText editTextDateOfBirth;
     EditText editTexuniversityid;
     EditText editTextGender;
-
     Button buttonAdd;
+    Dbhelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class AddStudentActivity extends AppCompatActivity {
         editTexuniversityid = findViewById(R.id.editTexuniversityid);
         editTextGender = findViewById(R.id.editTextGender);
         buttonAdd = findViewById(R.id.buttonAddStudent);
-
+          databaseHelper=new Dbhelper(this);
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,13 +46,9 @@ public class AddStudentActivity extends AppCompatActivity {
                 if (name.isEmpty() || studentId.isEmpty() || dateOfBirth.isEmpty() || gender.isEmpty()||universityid.isEmpty()) {
                     Toast.makeText(AddStudentActivity.this, "يرجى تعبئة جميع الحقول", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(AddStudentActivity.this, "تمت العملية بنجاح", Toast.LENGTH_SHORT).show();
-
                     Student student = new Student(name, studentId,name2 ,dateOfBirth, universityid, gender);
-
-                    Intent intent = new Intent();
-                    intent.putExtra("student", student);
-                    setResult(RESULT_OK, intent);
+                     databaseHelper.addStudent(student);
+                    Toast.makeText(AddStudentActivity.this, "تمت العملية بنجاح", Toast.LENGTH_SHORT).show();
                     finish();
                 }
 

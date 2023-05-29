@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddTeacherActivity2"
+    android:orientation="vertical"
+    android:gravity="center"
+    >
+    <EditText
+        android:id="@+id/editTextTeacherName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="اسم المستخدم"
+        android:layout_marginTop="5dp"
+        />
+
+    <EditText
+        android:id="@+id/editTextTeacherId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="كلمه المرور"
+        android:layout_marginTop="5dp"
+
+        />
+    <EditText
+        android:id="@+id/editTextTeacherName2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="اسم المدرس"
+        android:layout_marginTop="5dp"
+        />
+    <EditText
+        android:id="@+id/editTextTeacherDateOfBirth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="تاريخ الميلاد"
+        android:layout_marginTop="5dp"
+        />
+
+
+
+    <EditText
+        android:id="@+id/editTextTeacherGender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint=" الجنس"
+        android:layout_marginTop="5dp"
+
+        /> <EditText
+    android:id="@+id/editTeacherTextSalary"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="الراتب"
+    android:layout_marginTop="5dp"
+
+    /><EditText
+    android:id="@+id/editTeacherSpecialty"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="التخصص"
+    android:layout_marginTop="5dp"
+
+    />
+
+    <Button
+        android:id="@+id/buttonAddTeacher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="إضافة معلم"
+        android:layout_marginTop="5dp"
+
+        />
+
+
+</LinearLayout>

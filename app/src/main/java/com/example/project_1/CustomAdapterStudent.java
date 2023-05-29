@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,20 +13,35 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-public class CustomAdapterStudent extends ArrayAdapter<Student> {
+public class CustomAdapterStudent extends BaseAdapter {
 
     private Context context;
     private ArrayList<Student> studentList;
 
     public CustomAdapterStudent(Context context, ArrayList<Student> studentList) {
-        super(context, 0, studentList);
         this.context = context;
         this.studentList = studentList;
     }
 
-    @NonNull
+
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public int getCount() {
+        return studentList.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return studentList.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+
         View view = convertView;
         if (view == null) {
             view = LayoutInflater.from(context).inflate(R.layout.add_iteum_student, parent, false);

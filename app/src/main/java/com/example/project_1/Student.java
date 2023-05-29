@@ -9,7 +9,7 @@ public class Student implements Serializable {
     private String date;
     private String universityid;
     private String gender;
-    public Student(){}
+    //public Student(String name, int sTUDENT_ID, String userNAME, String dateOfBirth, String universityid, String gender){}
     public Student(String name, String id,String name2 ,String date, String university, String gender) {
         this.name = name;
         this.id = id;
@@ -18,6 +18,7 @@ public class Student implements Serializable {
         this.gender = gender;
         this.name2=name2;
     }
+
 
     public String getName() {
         return name;
