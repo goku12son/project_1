@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class Dbhelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "students.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     private static final String TABLE_STUDENTS = "students";
     private static final String COLUMN_ID = "id";
@@ -30,6 +30,12 @@ public class Dbhelper extends SQLiteOpenHelper {
     private static final String COLUMN_TEACHER_Gender = "Gender";
     private static final String COLUMN_TEACHER_Salary = "Salary";
     private static final String COLUMN_TEACHER_Specialty = "Specialty";
+   private static final String TABLE_QUESTIONS = "questions";
+    private static final String COLUMN_QUESTIONS_ID = "id";
+    private static final String COLUMN_QUESTION_TEXT = "question_text";
+    private static final String COLUMN_MARKS_WEIGHT = "marks_weight";
+    private static final String COLUMN_ANSWER = "answer";
+
 
 
     public Dbhelper(@Nullable Context context) {
@@ -51,6 +57,12 @@ public class Dbhelper extends SQLiteOpenHelper {
                 COLUMN_TEACHER_DateOfBirth + " TEXT, " + COLUMN_TEACHER_Gender + " TEXT, " +
                 COLUMN_TEACHER_Salary + " INTEGER, " + COLUMN_TEACHER_Specialty + " TEXT )";
         db.execSQL(createTableQuery2);
+        String createTableQuery3 = "CREATE TABLE " + TABLE_QUESTIONS + "(" +
+                COLUMN_QUESTIONS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_QUESTION_TEXT + " TEXT, " +
+                COLUMN_MARKS_WEIGHT + " REAL, " +
+                COLUMN_ANSWER + " INTEGER)";
+        db.execSQL(createTableQuery3);
 
     }
 
@@ -60,7 +72,11 @@ public class Dbhelper extends SQLiteOpenHelper {
         db.execSQL(dropTableQuery);
         String dropTableQuery2 = "DROP TABLE IF EXISTS " + TABLE_TEACHER;
         db.execSQL(dropTableQuery2);
+        String dropTableQuery3 = "DROP TABLE IF EXISTS " + TABLE_QUESTIONS;
+        db.execSQL(dropTableQuery3);
         onCreate(db);
+
+
     }
 
     public boolean addStudent(Student student) {
@@ -134,5 +150,59 @@ public class Dbhelper extends SQLiteOpenHelper {
 
         return data;
     }
+
+    public boolean checkTeacherLogin(String username, String password) {
+        SQLiteDatabase db = getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_TEACHER + " WHERE " + COLUMN_TEACHER_USERNAME + " = ? AND " +
+                COLUMN_TEACHER_ID + " = ?";
+        String[] selectionArgs = {username, password};
+        Cursor cursor = db.rawQuery(query, selectionArgs);
+        boolean result = cursor.getCount() > 0;
+        cursor.close();
+        return result;
+    }
+    public boolean addQuestion(String questionText, double marksWeight, boolean answer) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_QUESTION_TEXT, questionText);
+        values.put(COLUMN_MARKS_WEIGHT, marksWeight);
+        values.put(COLUMN_ANSWER, answer ? 1 : 0);
+        long rowId = db.insert(TABLE_QUESTIONS, null, values);
+        db.close();
+        return rowId >0;
+    }
+    public ArrayList<Question> getAllQuestion() {
+        SQLiteDatabase db = getReadableDatabase();
+        ArrayList<Question> data = new ArrayList<>();
+        String query = "SELECT * FROM " + TABLE_QUESTIONS ;
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                int qUESTIONS_ID = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_QUESTIONS_ID));
+                String tEXT = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_QUESTION_TEXT));
+                double mARKS = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_MARKS_WEIGHT));
+                int answerValue = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ANSWER));
+                boolean answer = (answerValue== 1);
+                Question question=new Question(qUESTIONS_ID,tEXT,mARKS, answer);
+                data.add(question);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+
+        return data;
+    }
+    public boolean updateQuestion(int id, String questionText, double marksWeight, boolean answer) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_QUESTION_TEXT, questionText);
+        values.put(COLUMN_MARKS_WEIGHT, marksWeight);
+        values.put(COLUMN_ANSWER, answer ? 1 : 0);
+        String selection = COLUMN_QUESTIONS_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(id)};
+        int rowsAffected = db.update(TABLE_QUESTIONS, values, selection, selectionArgs);
+        return rowsAffected > 0;
+    }
+
+
 
 }

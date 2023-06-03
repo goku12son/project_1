@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
      EditText usernameEditText;
      EditText passwordEditText;
      Button loginButton;
+    Dbhelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         usernameEditText = findViewById(R.id.usernameEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         loginButton = findViewById(R.id.loginButton);
+        databaseHelper=new Dbhelper(this);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
                 if (username.equals("admin") && password.equals("admin")) {
                     Toast.makeText(MainActivity.this, "تم تسجيل الدخول بنجاح", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this, AdminActivity.class);
+                    startActivity(intent);
+                } else if (databaseHelper.checkTeacherLogin(username, password)) {
+                    Toast.makeText(MainActivity.this, "تم تسجيل الدخول بنجاح", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, TeacherActivity.class);
                     startActivity(intent);
                 } else {
                     Toast.makeText(MainActivity.this, "خطأ في اسم المستخدم أو كلمة المرور", Toast.LENGTH_SHORT).show();

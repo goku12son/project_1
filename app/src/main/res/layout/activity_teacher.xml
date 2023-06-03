@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TeacherActivity"
+    android:orientation="vertical"
+    android:gravity="center"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="مرحبًا بك Teacher  "
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
+    <Button
+        android:id="@+id/btnAddStudent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="إضافة طالب جديد" />
+
+    <Button
+        android:id="@+id/btnViewStudents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="عرض جميع الطلاب" />
+
+    <Button
+        android:id="@+id/btnAddQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="إضافة سؤال جديد" />
+
+    <Button
+        android:id="@+id/btnEditQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="تعديل الأسئلة" />
+
+    <Button
+        android:id="@+id/btnViewQuestions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="عرض جميع الأسئلة" />
+
+    <Button
+        android:id="@+id/btnAddExam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="إضافة امتحان جديد" />
+
+    <Button
+        android:id="@+id/btnViewExams"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="عرض جميع الامتحانات" />
+
+    <Button
+        android:id="@+id/btnViewExamResults"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="عرض نتائج الامتحان" />
+
+    <Button
+        android:id="@+id/btnViewStudentResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="عرض نتيجة الطالب" />
+    <Button
+        android:id="@+id/logoutButton1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#AE1B1B"
+        android:text="تسجيل الخروج" />
+
+
+</LinearLayout>

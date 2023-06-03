@@ -71,7 +71,8 @@ public class AdminActivity extends AppCompatActivity {
 
     public void addNewStudent() {
         Intent intent = new Intent(AdminActivity.this, AddStudentActivity.class);
-        startActivity(intent);     }
+        startActivity(intent);
+    }
 
     public void addNewTeacher() {
         Intent intent = new Intent(AdminActivity.this, AddTeacherActivity2.class);
