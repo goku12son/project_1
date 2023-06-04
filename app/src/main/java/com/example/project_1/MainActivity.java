@@ -40,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "تم تسجيل الدخول بنجاح", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this, TeacherActivity.class);
                     startActivity(intent);
+                }else if (databaseHelper.checkStudentLogin(username, password)){
+                    Toast.makeText(MainActivity.this, "تم تسجيل الدخول بنجاح", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, StudentActivity.class);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(MainActivity.this, "خطأ في اسم المستخدم أو كلمة المرور", Toast.LENGTH_SHORT).show();
                 }

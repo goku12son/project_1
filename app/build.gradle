@@ -3,6 +3,8 @@ plugins {
 }
 
 android {
+
+
     namespace 'com.example.project_1'
     compileSdk 33
 

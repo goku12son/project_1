@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,10 +15,12 @@ import java.util.ArrayList;
 public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder> {
     private ArrayList<Exam> examList;
     Context context;
+     onClickIteum listener;
 
-    public ExamAdapter(ArrayList<Exam> examList, Context context) {
+    public ExamAdapter(ArrayList<Exam> examList, Context context, onClickIteum listener) {
         this.examList = examList;
         this.context = context;
+        this.listener = listener;
     }
 
     @NonNull
@@ -33,6 +36,14 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder
         holder.examNameTextView.setText("اسم الاختبار: " + examList.get(holder.getAdapterPosition()).getName());
         holder.numberOfQuestionsTextView.setText("عدد الأسئلة: " + String.valueOf(examList.get(holder.getAdapterPosition()).getNumberOfQuestions()));
         holder.totalMarksTextView.setText("إجمالي العلامات: " + String.valueOf(examList.get(holder.getAdapterPosition()).getTotalMarks()));
+    holder.contener.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            listener.onClick(examList.get(holder.getAdapterPosition()));
+
+        }
+    });
+
     }
 
     @Override
@@ -40,19 +51,25 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder
         return examList.size();
     }
 
+
+
     public static class ExamViewHolder extends RecyclerView.ViewHolder {
         TextView examNameTextView;
         TextView numberOfQuestionsTextView;
         TextView minPassAverageTextView;
         TextView totalMarksTextView;
-
+    LinearLayout contener;
         public ExamViewHolder(@NonNull View itemView) {
             super(itemView);
             examNameTextView = itemView.findViewById(R.id.examNameTextView);
             numberOfQuestionsTextView = itemView.findViewById(R.id.numberOfQuestionsTextView);
             minPassAverageTextView = itemView.findViewById(R.id.minPassAverageTextView);
             totalMarksTextView = itemView.findViewById(R.id.totalMarksTextView);
-
+            contener=itemView.findViewById(R.id.contener2);
         }
+
+    }
+    public interface onClickIteum{
+        void onClick(Exam exam);
     }
 }

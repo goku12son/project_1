@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Dbhelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "students.db";
@@ -188,16 +189,18 @@ public class Dbhelper extends SQLiteOpenHelper {
     public ArrayList<Question> getAllQuestion() {
         SQLiteDatabase db = getReadableDatabase();
         ArrayList<Question> data = new ArrayList<>();
-        String query = "SELECT * FROM " + TABLE_QUESTIONS ;
+        String query = "SELECT * FROM " + TABLE_QUESTIONS;
         Cursor cursor = db.rawQuery(query, null);
         if (cursor.moveToFirst()) {
             do {
                 int qUESTIONS_ID = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_QUESTIONS_ID));
                 String tEXT = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_QUESTION_TEXT));
                 double mARKS = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_MARKS_WEIGHT));
-                int answerValue = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ANSWER));
-                boolean answer = (answerValue== 1);
-                Question question=new Question(qUESTIONS_ID,tEXT,mARKS, answer);
+                String answerValue = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ANSWER));
+                ArrayList<String> answerOptions = new ArrayList<>();
+                answerOptions.add(answerValue);
+                Answer answer = new Answer(answerOptions, null);
+                Question question = new Question(qUESTIONS_ID, tEXT, mARKS, answer);
                 data.add(question);
             } while (cursor.moveToNext());
             cursor.close();
@@ -205,6 +208,8 @@ public class Dbhelper extends SQLiteOpenHelper {
 
         return data;
     }
+
+
     public boolean updateQuestion(int id, String questionText, double marksWeight, boolean answer) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -239,8 +244,13 @@ public class Dbhelper extends SQLiteOpenHelper {
                 int questionId = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_QUESTIONS_ID));
                 String questionText = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_QUESTION_TEXT));
                 double marksWeight = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_MARKS_WEIGHT));
-                int answerValue = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ANSWER));
-                boolean answer = (answerValue == 1);
+
+                String answerString = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ANSWER));
+
+                ArrayList<String> answerOptions = new ArrayList<>(Arrays.asList(answerString.split(",")));
+
+                Answer answer = new Answer(answerOptions, null);
+
                 Question question = new Question(questionId, questionText, marksWeight, answer);
                 questions.add(question);
             } while (cursor.moveToNext());
@@ -249,6 +259,8 @@ public class Dbhelper extends SQLiteOpenHelper {
 
         return questions;
     }
+
+
 
     public ArrayList<Exam> getExams() {
         ArrayList<Exam> examList = new ArrayList<>();
@@ -274,5 +286,40 @@ public class Dbhelper extends SQLiteOpenHelper {
 
         return examList;
     }
+    public boolean checkStudentLogin(String username, String password) {
+        SQLiteDatabase db = getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_STUDENTS + " WHERE " + COLUMN_USERNAME + " = ? AND " +
+                COLUMN_STUDENT_ID + " = ?";
+        String[] selectionArgs = {username, password};
+        Cursor cursor = db.rawQuery(query, selectionArgs);
+        boolean result = cursor.getCount() > 0;
+        cursor.close();
+        return result;
+    }
+    public ArrayList<Question> loadQuestionsFromDatabase() {
+        SQLiteDatabase db = getReadableDatabase();
+        ArrayList<Question> questions = new ArrayList<>();
+        String query = "SELECT * FROM " + TABLE_QUESTIONS;
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                int questionId = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_QUESTIONS_ID));
+                String questionText = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_QUESTION_TEXT));
+                double marksWeight = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_MARKS_WEIGHT));
+
+                String answerString = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ANSWER));
+
+                ArrayList<String> answerOptions = new ArrayList<>(Arrays.asList(answerString.split(",")));
+
+                Answer answer = new Answer(answerOptions, null);
+
+                Question question = new Question(questionId, questionText, marksWeight, answer);
+                questions.add(question);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return questions;
+    }
+
 
 }

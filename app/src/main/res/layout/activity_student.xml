@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".StudentActivity"
+    android:orientation="vertical"
+    android:gravity="center"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="مرحبًا بك  Student "
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/btnSolveExam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="حل الاختبار"
+      android:layout_marginTop="10dp"/>
+    <Button
+        android:id="@+id/btnExamResults"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="نتائج الاختبارات"
+        android:layout_marginTop="10dp"/>
+    <Button
+        android:id="@+id/btnExamResultDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="تفاصيل نتيجة الاختبار"
+        android:layout_marginTop="10dp"/>
+    <Button
+        android:id="@+id/btnEditInformation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="تعديل المعلومات"
+        android:layout_marginTop="10dp"/>
+    <Button
+        android:id="@+id/btnViewRank"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="عرض الترتيب"
+        android:layout_marginTop="10dp"
+        />
+    <Button
+        android:id="@+id/logoutButton2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#AE1B1B"
+        android:text="تسجيل الخروج" />
+
+</LinearLayout>

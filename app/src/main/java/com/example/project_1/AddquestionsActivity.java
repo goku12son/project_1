@@ -49,7 +49,7 @@ public class AddquestionsActivity extends AppCompatActivity {
                 boolean answer1 = getSelectedAnswer();
 
                 if (question!=null){
-                   boolean isSave= databaseHelper.updateQuestion(question.getId(),questionText,marksWeight,answer1);
+                   boolean isSave= databaseHelper.updateQuestion(question.getQuestionId(),questionText,marksWeight,answer1);
                    if (isSave){
                        Toast.makeText(AddquestionsActivity.this, "تم التعديل", Toast.LENGTH_SHORT).show();
                       finish();
