@@ -76,14 +76,15 @@ public class TeacherActivity extends AppCompatActivity {
         btnAddExam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // إضافة امتحان جديد
-            }
+                Intent intent = new Intent(TeacherActivity.this, AddExamActivity.class);
+                startActivity(intent);            }
         });
 
         btnViewExams.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // عرض جميع الامتحانات
+                Intent intent = new Intent(TeacherActivity.this, ViewAllExamsActivity.class);
+                startActivity(intent);
             }
         });
 

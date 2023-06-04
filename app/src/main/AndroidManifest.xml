@@ -12,6 +12,20 @@
         android:theme="@style/Theme.Project_1"
         tools:targetApi="31">
         <activity
+            android:name=".ViewAllExamsActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".AddExamActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".editquestionActivity"
             android:exported="false">
             <meta-data

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddExamActivity"
+    android:orientation="vertical"
+    android:gravity="center"
+    >
+
+
+    <EditText
+        android:id="@+id/etExamName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="اسم الامتحان" />
+
+    <EditText
+        android:id="@+id/etTotalMarks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="مجموع علامات" />
+    <EditText
+        android:id="@+id/etNumberOfQuestions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="  عدد الأسئلة"
+        android:layout_marginTop="5dp"
+        />
+
+    <EditText
+        android:id="@+id/etMinPassAverage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="  الحد الأدنى لمتوسط النجاح"
+        android:layout_marginTop="5dp"
+
+        />
+
+    <EditText
+        android:id="@+id/etAllowedQuestionType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="  نوع السؤال المسموح به"
+        android:layout_marginTop="5dp"
+
+        />
+
+    <Button
+        android:id="@+id/btnCreateExam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="إنشاء امتحان"
+        android:layout_marginTop="5dp"
+
+        />
+</LinearLayout>

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class Dbhelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "students.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 5;
 
     private static final String TABLE_STUDENTS = "students";
     private static final String COLUMN_ID = "id";
@@ -35,6 +35,13 @@ public class Dbhelper extends SQLiteOpenHelper {
     private static final String COLUMN_QUESTION_TEXT = "question_text";
     private static final String COLUMN_MARKS_WEIGHT = "marks_weight";
     private static final String COLUMN_ANSWER = "answer";
+    private static final String TABLE_EXAMS = "exams";
+    private static final String COLUMN_EXAMS_ID = "id";
+    private static final String COLUMN_NUMBER_OF_QUESTIONS = "number_of_questions";
+    private static final String COLUMN_MIN_PASS_AVERAGE = "min_pass_average";
+    private static final String COLUMN_ALLOWED_QUESTION_TYPE = "allowed_question_type";
+    private static final String COLUMN_EXAM_NAME = "exam_name";
+    private static final String COLUMN_TOTAL_MARKS = "total_marks";
 
 
 
@@ -63,17 +70,24 @@ public class Dbhelper extends SQLiteOpenHelper {
                 COLUMN_MARKS_WEIGHT + " REAL, " +
                 COLUMN_ANSWER + " INTEGER)";
         db.execSQL(createTableQuery3);
+        String CREATE_EXAMS_TABLE = "CREATE TABLE " + TABLE_EXAMS + "("
+                + COLUMN_EXAMS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COLUMN_EXAM_NAME + " TEXT,"
+                + COLUMN_NUMBER_OF_QUESTIONS + " INTEGER,"
+                + COLUMN_MIN_PASS_AVERAGE + " REAL,"
+                + COLUMN_TOTAL_MARKS + " INTEGER,"
+                + COLUMN_ALLOWED_QUESTION_TYPE + " TEXT"
+                + ")";
+        db.execSQL(CREATE_EXAMS_TABLE);
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String dropTableQuery = "DROP TABLE IF EXISTS " + TABLE_STUDENTS;
-        db.execSQL(dropTableQuery);
-        String dropTableQuery2 = "DROP TABLE IF EXISTS " + TABLE_TEACHER;
-        db.execSQL(dropTableQuery2);
-        String dropTableQuery3 = "DROP TABLE IF EXISTS " + TABLE_QUESTIONS;
-        db.execSQL(dropTableQuery3);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_STUDENTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TEACHER);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_QUESTIONS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EXAMS);
         onCreate(db);
 
 
@@ -202,7 +216,63 @@ public class Dbhelper extends SQLiteOpenHelper {
         int rowsAffected = db.update(TABLE_QUESTIONS, values, selection, selectionArgs);
         return rowsAffected > 0;
     }
+    public boolean addExam(Exam exam) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_EXAM_NAME, exam.getName());
+        values.put(COLUMN_NUMBER_OF_QUESTIONS, exam.getNumberOfQuestions());
+        values.put(COLUMN_MIN_PASS_AVERAGE, exam.getMinPassAverage());
+        values.put(COLUMN_TOTAL_MARKS, exam.getTotalMarks());
+        values.put(COLUMN_ALLOWED_QUESTION_TYPE, exam.getAllowedQuestionType());
+        long result = db.insert(TABLE_EXAMS, null, values);
+        db.close();
+        return result > 0;
+    }
+    public ArrayList<Question> getRandomQuestions(int numberOfQuestions) {
+        SQLiteDatabase db = getReadableDatabase();
+        ArrayList<Question> questions = new ArrayList<>();
+        String query = "SELECT * FROM " + TABLE_QUESTIONS + " ORDER BY RANDOM() LIMIT " + numberOfQuestions;
+        Cursor cursor = db.rawQuery(query, null);
 
+        if (cursor.moveToFirst()) {
+            do {
+                int questionId = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_QUESTIONS_ID));
+                String questionText = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_QUESTION_TEXT));
+                double marksWeight = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_MARKS_WEIGHT));
+                int answerValue = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ANSWER));
+                boolean answer = (answerValue == 1);
+                Question question = new Question(questionId, questionText, marksWeight, answer);
+                questions.add(question);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
 
+        return questions;
+    }
+
+    public ArrayList<Exam> getExams() {
+        ArrayList<Exam> examList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_EXAMS;
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                int examId = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_EXAMS_ID));
+                String examName = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_EXAM_NAME));
+                int numberOfQuestions = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NUMBER_OF_QUESTIONS));
+                double minPassAverage = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_MIN_PASS_AVERAGE));
+                int totalMarks = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_TOTAL_MARKS));
+                String allowedQuestionType = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ALLOWED_QUESTION_TYPE));
+                ArrayList<Question> questions = getRandomQuestions(examId);
+                Exam exam = new Exam(examName, numberOfQuestions, minPassAverage, totalMarks, allowedQuestionType, questions);
+                examList.add(exam);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return examList;
+    }
 
 }
