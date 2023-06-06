@@ -22,18 +22,8 @@
         android:layout_height="wrap_content"
         android:text="حل الاختبار"
       android:layout_marginTop="10dp"/>
-    <Button
-        android:id="@+id/btnExamResults"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="نتائج الاختبارات"
-        android:layout_marginTop="10dp"/>
-    <Button
-        android:id="@+id/btnExamResultDetails"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="تفاصيل نتيجة الاختبار"
-        android:layout_marginTop="10dp"/>
+
+
     <Button
         android:id="@+id/btnEditInformation"
         android:layout_width="match_parent"

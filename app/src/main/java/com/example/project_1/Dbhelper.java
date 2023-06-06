@@ -184,8 +184,9 @@ public class Dbhelper extends SQLiteOpenHelper {
         values.put(COLUMN_ANSWER, answer ? 1 : 0);
         long rowId = db.insert(TABLE_QUESTIONS, null, values);
         db.close();
-        return rowId >0;
+        return rowId > 0;
     }
+
     public ArrayList<Question> getAllQuestion() {
         SQLiteDatabase db = getReadableDatabase();
         ArrayList<Question> data = new ArrayList<>();
@@ -193,19 +194,20 @@ public class Dbhelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query, null);
         if (cursor.moveToFirst()) {
             do {
-                int qUESTIONS_ID = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_QUESTIONS_ID));
-                String tEXT = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_QUESTION_TEXT));
-                double mARKS = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_MARKS_WEIGHT));
-                String answerValue = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ANSWER));
+                int questionId = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_QUESTIONS_ID));
+                String questionText = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_QUESTION_TEXT));
+                double marksWeight = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_MARKS_WEIGHT));
+                int answerValue = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ANSWER));
+
                 ArrayList<String> answerOptions = new ArrayList<>();
-                answerOptions.add(answerValue);
+                answerOptions.add(String.valueOf(answerValue));
+
                 Answer answer = new Answer(answerOptions, null);
-                Question question = new Question(qUESTIONS_ID, tEXT, mARKS, answer);
+                Question question = new Question(questionId, questionText, marksWeight, answer);
                 data.add(question);
             } while (cursor.moveToNext());
             cursor.close();
         }
-
         return data;
     }
 
@@ -320,6 +322,21 @@ public class Dbhelper extends SQLiteOpenHelper {
         }
         return questions;
     }
+    public boolean updateStudent(String id, String password, String name, String birthdate) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
 
+        values.put(COLUMN_USERNAME, name);
+        values.put(COLUMN_STUDENT_ID, password);
+        values.put(COLUMN_STUDENT_DateOfBirth, birthdate);
+
+        String selection = COLUMN_STUDENT_universityid + " = ?";
+
+        String[] selectionArgs = {id};
+
+        int rowsAffected = db.update(TABLE_STUDENTS, values, selection, selectionArgs);
+
+        return rowsAffected > 0;
+    }
 
 }

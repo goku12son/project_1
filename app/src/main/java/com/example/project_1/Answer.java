@@ -1,19 +1,19 @@
 package com.example.project_1;
 
-
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Answer implements Serializable {
-    private ArrayList<String> options;
+    private List<String> options;
     private String userAnswer;
 
-    public Answer(ArrayList<String> options, String userAnswer) {
+    public Answer(List<String> options, String userAnswer) {
         this.options = options;
         this.userAnswer = userAnswer;
     }
 
-    public ArrayList<String> getOptions() {
+    public List<String> getOptions() {
         return options;
     }
 

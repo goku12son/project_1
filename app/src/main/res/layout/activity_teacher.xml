@@ -57,11 +57,7 @@
         android:layout_height="wrap_content"
         android:text="عرض جميع الامتحانات" />
 
-    <Button
-        android:id="@+id/btnViewExamResults"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="عرض نتائج الامتحان" />
+
 
     <Button
         android:id="@+id/btnViewStudentResult"

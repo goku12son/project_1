@@ -4,11 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class TeacherActivity extends AppCompatActivity {
+import java.util.ArrayList;
 
+public class TeacherActivity extends AppCompatActivity {
+    ArrayList<ExamResultDetails> examResultDetailsList ;
+     ArrayList<Question> questionList;
+Dbhelper dbhelper;
   Button btnAddStudent;
   Button btnViewStudents;
      Button btnAddQuestion;
@@ -16,9 +21,9 @@ public class TeacherActivity extends AppCompatActivity {
   Button btnViewQuestions;
      Button btnAddExam;
      Button btnViewExams;
-     Button btnViewExamResults;
    Button btnViewStudentResult;
     Button logoutButton1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,8 +36,10 @@ public class TeacherActivity extends AppCompatActivity {
         btnViewQuestions = findViewById(R.id.btnViewQuestions);
         btnAddExam = findViewById(R.id.btnAddExam);
         btnViewExams = findViewById(R.id.btnViewExams);
-        btnViewExamResults = findViewById(R.id.btnViewExamResults);
         btnViewStudentResult = findViewById(R.id.btnViewStudentResult);
+        examResultDetailsList = new ArrayList<>();
+
+        dbhelper=new Dbhelper(this);
         logoutButton1=findViewById(R.id.logoutButton1);
         btnAddStudent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,17 +95,14 @@ public class TeacherActivity extends AppCompatActivity {
             }
         });
 
-        btnViewExamResults.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // عرض نتائج الامتحان
-            }
-        });
+
 
         btnViewStudentResult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // عرض نتيجة الطالب
+
+                Intent intent = new Intent(TeacherActivity.this, TopStudentsActivity.class);
+                startActivity(intent);
             }
         });
 

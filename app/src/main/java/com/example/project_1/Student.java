@@ -9,7 +9,8 @@ public class Student implements Serializable {
     private String date;
     private String universityid;
     private String gender;
-    //public Student(String name, int sTUDENT_ID, String userNAME, String dateOfBirth, String universityid, String gender){}
+    private ExamResultDetails[] examResultDetailsList;
+    public Student(){}
     public Student(String name, String id,String name2 ,String date, String university, String gender) {
         this.name = name;
         this.id = id;
@@ -78,5 +79,21 @@ public class Student implements Serializable {
                 ", universityid='" + universityid + '\'' +
                 ", gender='" + gender + '\'' +
                 '}';
+    }
+
+    public double getAverageResult() {
+
+        int totalMarks = 0;
+        int numberOfExams = examResultDetailsList.length;
+
+        for (ExamResultDetails resultDetails : examResultDetailsList) {
+            totalMarks += resultDetails.getMarks();
+        }
+
+        if (numberOfExams > 0) {
+            return (double) totalMarks / numberOfExams;
+        } else {
+            return 0.0;
+        }
     }
 }
